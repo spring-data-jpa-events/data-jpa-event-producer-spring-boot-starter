@@ -1,0 +1,40 @@
+plugins {
+  id 'java-library'
+  id 'com.diffplug.spotless'
+  id 'io.freefair.lombok'
+  id 'io.spring.dependency-management'
+}
+
+repositories {
+  mavenCentral()
+}
+
+java {
+  toolchain {
+    languageVersion.set(JavaLanguageVersion.of(17))
+  }
+}
+
+spotless {
+  ratchetFrom 'origin/main'
+  java {
+    target project.fileTree(dir: 'src', include: '**/*.java')
+    googleJavaFormat()
+    removeUnusedImports()
+  }
+}
+
+dependencyManagement {
+	imports {
+		mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+	}
+}
+
+test {
+  useJUnitPlatform()
+  filter {
+    includeTestsMatching "*Test"
+    includeTestsMatching "*IT"
+    includeTestsMatching "*CT"
+  }
+}

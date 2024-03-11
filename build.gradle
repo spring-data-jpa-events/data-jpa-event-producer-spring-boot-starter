@@ -1,0 +1,7 @@
+plugins {
+  id 'java'
+  id 'com.palantir.git-version' version '3.0.0'
+}
+
+group = 'com.github.spring-data-jpa-events'
+version = gitVersion()
