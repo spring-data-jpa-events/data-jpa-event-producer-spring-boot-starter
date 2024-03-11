@@ -1,0 +1,27 @@
+plugins {
+  id 'java-library'
+}
+
+group = parent.group
+version = parent.version
+
+dependencies {
+  implementation 'com.fasterxml.jackson.core:jackson-databind'
+  implementation 'org.hibernate.orm:hibernate-core'
+  implementation 'org.slf4j:slf4j-api'
+  implementation 'org.springframework.kafka:spring-kafka'
+}
+
+// lombok
+apply plugin: 'io.freefair.lombok'
+// spring-boot BOM
+apply plugin: 'io.spring.dependency-management'
+dependencyManagement {
+  imports {
+    mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+  }
+}
+
+repositories {
+  mavenCentral()
+}

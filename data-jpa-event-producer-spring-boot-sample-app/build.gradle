@@ -1,0 +1,47 @@
+plugins {
+  id 'java'
+}
+
+group = parent.group
+version = parent.version
+
+dependencies {
+  implementation project(':data-jpa-event-producer-spring-boot-starter')
+
+  implementation 'com.fasterxml.jackson.core:jackson-databind'
+  implementation 'org.springframework.boot:spring-boot-starter-actuator'
+  implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+  implementation 'org.springframework.boot:spring-boot-starter-web'
+  implementation 'org.springframework.kafka:spring-kafka'
+
+  runtimeOnly 'org.postgresql:postgresql'
+
+  testImplementation 'org.assertj:assertj-core'
+  testImplementation 'org.awaitility:awaitility'
+  testImplementation 'org.testcontainers:postgresql'
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  testImplementation 'org.springframework.kafka:spring-kafka-test'
+}
+
+// spring-boot BOM
+apply plugin: 'io.spring.dependency-management'
+dependencyManagement {
+  imports {
+    mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+  }
+}
+
+apply plugin: 'io.freefair.lombok'
+
+apply plugin: 'com.diffplug.spotless'
+spotless {
+  ratchetFrom 'origin/main'
+  java {
+    target project.fileTree(dir: 'src', include: '**/*.java')
+    eclipse()
+  }
+}
+
+repositories {
+  mavenCentral()
+}

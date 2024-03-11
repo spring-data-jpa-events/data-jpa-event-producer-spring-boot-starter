@@ -1,0 +1,15 @@
+plugins {
+  id 'java-library'
+}
+
+group = parent.group
+version = parent.version
+
+dependencies {
+  api project(':data-jpa-event-producer')
+  api project(':data-jpa-event-producer-spring-boot-autoconfigure')
+}
+
+repositories {
+  mavenCentral()
+}

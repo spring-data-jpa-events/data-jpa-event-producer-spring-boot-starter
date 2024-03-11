@@ -1,0 +1,14 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  datasource:
+    url: jdbc:tc:postgresql:9.6.12:///testdb?TC_INITSCRIPT=file:src/main/resources/schema.sql
+  kafka:
+    producer:
+      transaction-id-prefix: tx-
+
+logging:
+  level:
+    root: WARN
+    '[com.github.spring.data.jpa.event]': DEBUG
