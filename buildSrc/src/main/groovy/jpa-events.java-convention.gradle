@@ -1,5 +1,7 @@
 plugins {
   id 'java-library'
+  id 'maven-publish'
+
   id 'com.diffplug.spotless'
   id 'io.freefair.lombok'
   id 'io.spring.dependency-management'
@@ -37,4 +39,31 @@ test {
     includeTestsMatching "*IT"
     includeTestsMatching "*CT"
   }
+}
+
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      versionMapping {
+        usage('java-api') {
+          fromResolutionOf('runtimeClasspath')
+        }
+        usage('java-runtime') {
+          fromResolutionResult()
+        }
+      }
+    }
+  }
+  repositories {
+    //mavenLocal()
+    maven {
+      name = "GitHubPackages"
+      url = uri("https://maven.pkg.github.com/spring-data-jpa-events/data-jpa-event-kafka-producer-spring-boot-starter")
+      credentials {
+        username = System.getenv("USERNAME")
+        password = System.getenv("TOKEN")
+      }
+    }
+  }
+
 }
