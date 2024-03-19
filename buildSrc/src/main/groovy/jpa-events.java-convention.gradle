@@ -58,7 +58,7 @@ publishing {
     //mavenLocal()
     maven {
       name = "GitHubPackages"
-      url = uri("https://maven.pkg.github.com/spring-data-jpa-events/data-jpa-event-kafka-producer-spring-boot-starter")
+      url = uri("https://maven.pkg.github.com/spring-data-jpa-events/data-jpa-event-producer-spring-boot-starter")
       credentials {
         username = System.getenv("USERNAME")
         password = System.getenv("TOKEN")
