@@ -11,13 +11,13 @@ __Warning:__ _Not available in maven central yet but can be fetched from github 
 ``` xml
 <dependency>
   <groupId>com.github.spring-data-jpa-events</groupId>
-  <artifactId>data-jpa-event-producer-spring-boot-autoconfigure</artifactId>
+  <artifactId>data-jpa-event-producer-spring-boot-starter</artifactId>
   <version>0.0.1</version>
 </dependency>
 ```
 ### gradle
 ``` yaml
-implementation 'com.github.spring-data-jpa-events:data-jpa-event-producer-spring-boot-autoconfigure:0.0.1'
+implementation 'com.github.spring-data-jpa-events:data-jpa-event-producer-spring-boot-starter:0.0.1'
 ```
 
 ## Example
