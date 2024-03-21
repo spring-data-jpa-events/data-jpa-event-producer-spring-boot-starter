@@ -58,8 +58,7 @@ publishing {
     }
   }
   repositories {
-    mavenLocal()
-    /*
+    //mavenLocal()
     maven {
       name = "GitHubPackages"
       url = uri("https://maven.pkg.github.com/spring-data-jpa-events/data-jpa-event-producer-spring-boot-starter")
@@ -68,7 +67,6 @@ publishing {
         password = System.getenv("TOKEN")
       }
     }
-    */
   }
 
 }
