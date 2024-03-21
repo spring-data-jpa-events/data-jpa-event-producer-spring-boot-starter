@@ -1,0 +1,6 @@
+rootProject.name = 'data-jpa-event-producer'
+
+include 'data-jpa-event-producer'
+include 'data-jpa-event-producer-spring-boot-autoconfigure'
+include 'data-jpa-event-producer-spring-boot-starter'
+include 'data-jpa-event-producer-spring-boot-sample-app'

@@ -1,0 +1,72 @@
+plugins {
+  id 'java-library'
+  id 'maven-publish'
+
+  id 'com.diffplug.spotless'
+  id 'io.freefair.lombok'
+  id 'io.spring.dependency-management'
+}
+
+repositories {
+  mavenCentral()
+}
+
+java {
+  toolchain {
+    languageVersion.set(JavaLanguageVersion.of(17))
+  }
+  withJavadocJar()
+  withSourcesJar()
+}
+
+spotless {
+  ratchetFrom 'origin/main'
+  java {
+    target project.fileTree(dir: 'src', include: '**/*.java')
+    googleJavaFormat()
+    removeUnusedImports()
+  }
+}
+
+dependencyManagement {
+	imports {
+		mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+	}
+}
+
+test {
+  useJUnitPlatform()
+  filter {
+    includeTestsMatching "*Test"
+    includeTestsMatching "*IT"
+    includeTestsMatching "*CT"
+  }
+}
+
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      from components.java
+      versionMapping {
+        usage('java-api') {
+          fromResolutionOf('runtimeClasspath')
+        }
+        usage('java-runtime') {
+          fromResolutionResult()
+        }
+      }
+    }
+  }
+  repositories {
+    //mavenLocal()
+    maven {
+      name = "GitHubPackages"
+      url = uri("https://maven.pkg.github.com/spring-data-jpa-events/data-jpa-event-producer-spring-boot-starter")
+      credentials {
+        username = System.getenv("USERNAME")
+        password = System.getenv("TOKEN")
+      }
+    }
+  }
+
+}

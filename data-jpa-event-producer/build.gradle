@@ -1,0 +1,14 @@
+plugins {
+  id 'java-library'
+  id 'jpa-events.java-convention'
+}
+
+group = parent.group
+version = parent.version
+
+dependencies {
+  api 'com.fasterxml.jackson.core:jackson-databind'
+  api 'org.hibernate.orm:hibernate-core'
+  api 'org.slf4j:slf4j-api'
+  api 'org.springframework.kafka:spring-kafka'
+}
