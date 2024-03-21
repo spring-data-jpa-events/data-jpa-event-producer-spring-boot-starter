@@ -7,9 +7,10 @@ group = parent.group
 version = parent.version
 
 dependencies {
-  implementation project(':data-jpa-event-producer')
-  implementation 'com.fasterxml.jackson.core:jackson-databind' 
   implementation 'org.springframework.boot:spring-boot-autoconfigure'
-  implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-  implementation 'org.springframework.kafka:spring-kafka'
+
+  compileOnly project(':data-jpa-event-producer')
+  compileOnly 'com.fasterxml.jackson.core:jackson-databind'
+  compileOnly 'org.springframework.boot:spring-boot-starter-data-jpa'
+  compileOnly 'org.springframework.kafka:spring-kafka'
 }

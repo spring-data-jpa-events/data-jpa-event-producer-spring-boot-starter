@@ -7,8 +7,8 @@ group = parent.group
 version = parent.version
 
 dependencies {
-  implementation 'com.fasterxml.jackson.core:jackson-databind'
-  implementation 'org.hibernate.orm:hibernate-core'
-  implementation 'org.slf4j:slf4j-api'
-  implementation 'org.springframework.kafka:spring-kafka'
+  api 'com.fasterxml.jackson.core:jackson-databind'
+  api 'org.hibernate.orm:hibernate-core'
+  api 'org.slf4j:slf4j-api'
+  api 'org.springframework.kafka:spring-kafka'
 }

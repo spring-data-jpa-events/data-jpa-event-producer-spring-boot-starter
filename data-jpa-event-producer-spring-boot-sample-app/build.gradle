@@ -9,11 +9,9 @@ version = parent.version
 dependencies {
   implementation project(':data-jpa-event-producer-spring-boot-starter')
 
-  implementation 'com.fasterxml.jackson.core:jackson-databind'
   implementation 'org.springframework.boot:spring-boot-starter-actuator'
   implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
   implementation 'org.springframework.boot:spring-boot-starter-web'
-  implementation 'org.springframework.kafka:spring-kafka'
 
   runtimeOnly 'org.postgresql:postgresql'
 

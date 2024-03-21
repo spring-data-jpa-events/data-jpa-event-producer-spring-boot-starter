@@ -1,6 +1,5 @@
 package com.github.spring.data.jpa.event.producer;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.spring.data.jpa.event.producer.EntityEvent.Action;
 import java.time.Instant;
@@ -34,9 +33,8 @@ public class EntityEventToKafkaEventHandler<I, E> implements EntityEventListener
         kafkaTemplate.send(kafkaTopicName, uuid.toString(), jsonEvent);
       }
 
-    } catch (JsonProcessingException e) {
-      // TODO Auto-generated catch block
-      log.error("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO", e);
+    } catch (Exception e) {
+      throw new EntityEventProducerException("Unexpected error while producing Entity event.", e);
     }
   }
 
@@ -49,9 +47,8 @@ public class EntityEventToKafkaEventHandler<I, E> implements EntityEventListener
       log.info("Producing event on topic [{}] : {}", kafkaTopicName, jsonEvent);
       kafkaTemplate.send(kafkaTopicName, jsonEvent);
 
-    } catch (JsonProcessingException e) {
-      // TODO Auto-generated catch block
-      log.error("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO", e);
+    } catch (Exception e) {
+      throw new EntityEventProducerException("Unexpected error while producing Entity event.", e);
     }
   }
 
@@ -64,9 +61,8 @@ public class EntityEventToKafkaEventHandler<I, E> implements EntityEventListener
       log.info("Producing event on topic [{}] : {}", kafkaTopicName, jsonEvent);
       kafkaTemplate.send(kafkaTopicName, jsonEvent);
 
-    } catch (JsonProcessingException e) {
-      // TODO Auto-generated catch block
-      log.error("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO", e);
+    } catch (Exception e) {
+      throw new EntityEventProducerException("Unexpected error while producing Entity event.", e);
     }
   }
 }

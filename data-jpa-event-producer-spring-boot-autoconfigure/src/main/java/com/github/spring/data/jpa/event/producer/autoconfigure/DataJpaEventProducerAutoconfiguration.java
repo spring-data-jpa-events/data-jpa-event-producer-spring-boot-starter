@@ -11,6 +11,8 @@ import java.util.Set;
 import org.hibernate.event.service.spi.EventListenerRegistry;
 import org.hibernate.event.spi.EventType;
 import org.hibernate.internal.SessionFactoryImpl;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -18,14 +20,17 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.orm.jpa.JpaTransactionManager;
 
 @Configuration
+@ConditionalOnClass({EventListenerRegistry.class, KafkaTemplate.class, ObjectMapper.class})
 public class DataJpaEventProducerAutoconfiguration {
 
+  @ConditionalOnMissingBean
   @Bean
   @Primary
   public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
     return new JpaTransactionManager(entityManagerFactory);
   }
 
+  @ConditionalOnMissingBean
   @Bean
   public HibernateEventListener hibernateEventListener(
       EntityManagerFactory entityManagerFactory,
@@ -45,6 +50,7 @@ public class DataJpaEventProducerAutoconfiguration {
     return listener;
   }
 
+  @ConditionalOnMissingBean
   @Bean
   public Set<EntityEventToKafkaEventHandler<?, ?>> entityListeners(
       EntityManager entityManager,
