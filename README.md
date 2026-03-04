@@ -24,16 +24,16 @@ implementation 'com.github.spring-data-jpa-events:data-jpa-event-producer-spring
 
 See the sample-app module for a fully working example.
 
-Once you added the starter as a dependency to your project you can simply add the following annotation `@KafkaEvents` to a JPA entity and the lib will start publishing CREATE/UPDATE/DELETE events for it. 
+Once you added the starter as a dependency to your project you can simply add the following annotation `@EventProducer` to a JPA entity and the lib will start publishing CREATE/UPDATE/DELETE events for it.
 
 The lib only support Kafka as of today:
 ``` java
 @Entity
-@KafkaEvents(topic = "organization")
+@EventProducer(topic = "organization")
 @Table(name = "organization")
 @Data
 public class Organization {
-  @Id 
+  @Id
   private UUID id;
   private String name;
   ...
