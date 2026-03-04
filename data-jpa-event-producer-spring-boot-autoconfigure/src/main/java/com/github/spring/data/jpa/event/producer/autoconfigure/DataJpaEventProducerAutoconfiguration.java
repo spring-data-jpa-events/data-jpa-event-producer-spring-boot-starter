@@ -4,9 +4,11 @@ import static java.util.stream.Collectors.toSet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.spring.data.jpa.event.producer.EntityEventToKafkaEventHandler;
-import com.github.spring.data.jpa.event.producer.HibernateEventListener;
+import com.github.spring.data.jpa.event.producer.jpa.listener.HibernateEventListener;
+import com.github.spring.data.jpa.event.producer.mapper.EntityToEventMapperDefaultImpl;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.metamodel.EntityType;
 import java.util.Set;
 import org.hibernate.event.service.spi.EventListenerRegistry;
 import org.hibernate.event.spi.EventType;
@@ -58,15 +60,15 @@ public class DataJpaEventProducerAutoconfiguration {
       ObjectMapper objectMapper) {
 
     return entityManager.getMetamodel().getEntities().stream()
-        .map(entity -> entity.getJavaType())
+        .map(EntityType::getJavaType)
         .filter(entityClass -> entityClass.isAnnotationPresent(KafkaEvents.class))
         .map(
             entityClass ->
                 new EntityEventToKafkaEventHandler<>(
                     entityClass.getName(),
                     entityClass.getAnnotation(KafkaEvents.class).topic(),
-                    kafkaTemplate,
-                    objectMapper))
+                    new EntityToEventMapperDefaultImpl<>(objectMapper),
+                    kafkaTemplate))
         .collect(toSet());
   }
 }

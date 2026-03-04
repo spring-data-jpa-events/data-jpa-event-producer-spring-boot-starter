@@ -1,3 +1,7 @@
+plugins {
+  id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
+}
+
 rootProject.name = 'data-jpa-event-producer'
 
 include 'data-jpa-event-producer'
