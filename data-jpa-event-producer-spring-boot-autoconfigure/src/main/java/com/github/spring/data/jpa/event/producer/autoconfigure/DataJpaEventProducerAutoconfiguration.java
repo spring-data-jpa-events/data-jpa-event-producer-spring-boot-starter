@@ -61,12 +61,12 @@ public class DataJpaEventProducerAutoconfiguration {
 
     return entityManager.getMetamodel().getEntities().stream()
         .map(EntityType::getJavaType)
-        .filter(entityClass -> entityClass.isAnnotationPresent(KafkaEvents.class))
+        .filter(entityClass -> entityClass.isAnnotationPresent(EventProducer.class))
         .map(
             entityClass ->
                 new EntityEventToKafkaEventHandler<>(
                     entityClass.getName(),
-                    entityClass.getAnnotation(KafkaEvents.class).topic(),
+                    entityClass.getAnnotation(EventProducer.class).topic(),
                     new EntityToEventMapperDefaultImpl<>(objectMapper),
                     kafkaTemplate))
         .collect(toSet());

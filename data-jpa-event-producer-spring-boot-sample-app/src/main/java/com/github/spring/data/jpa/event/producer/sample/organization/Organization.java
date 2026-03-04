@@ -1,7 +1,7 @@
 package com.github.spring.data.jpa.event.producer.sample.organization;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.github.spring.data.jpa.event.producer.autoconfigure.KafkaEvents;
+import com.github.spring.data.jpa.event.producer.autoconfigure.EventProducer;
 import com.github.spring.data.jpa.event.producer.sample.user.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -12,7 +12,7 @@ import java.util.UUID;
 import lombok.Data;
 
 @Entity
-@KafkaEvents(topic = "organization")
+@EventProducer(topic = "organization")
 @Table(name = "organization")
 @Data
 public class Organization {
