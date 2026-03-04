@@ -1,7 +1,8 @@
-package com.github.spring.data.jpa.event.producer;
+package com.github.spring.data.jpa.event.producer.jpa.listener;
 
 import static java.util.stream.Collectors.toMap;
 
+import com.github.spring.data.jpa.event.producer.EntityEventToKafkaEventHandler;
 import java.util.Map;
 import java.util.Set;
 import lombok.extern.slf4j.Slf4j;

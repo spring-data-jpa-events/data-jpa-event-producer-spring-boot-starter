@@ -23,7 +23,7 @@ spotless {
   ratchetFrom 'origin/main'
   java {
     target project.fileTree(dir: 'src', include: '**/*.java')
-    googleJavaFormat()
+    googleJavaFormat('1.27.0')
     removeUnusedImports()
   }
 }

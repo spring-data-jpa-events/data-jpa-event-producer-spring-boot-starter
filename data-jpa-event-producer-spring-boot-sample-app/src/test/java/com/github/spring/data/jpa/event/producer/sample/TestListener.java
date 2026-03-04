@@ -2,7 +2,7 @@ package com.github.spring.data.jpa.event.producer.sample;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.spring.data.jpa.event.producer.EntityEvent;
+import com.github.spring.data.jpa.event.producer.mapper.EntityEvent;
 import com.github.spring.data.jpa.event.producer.sample.user.User;
 import java.util.ArrayList;
 import java.util.List;

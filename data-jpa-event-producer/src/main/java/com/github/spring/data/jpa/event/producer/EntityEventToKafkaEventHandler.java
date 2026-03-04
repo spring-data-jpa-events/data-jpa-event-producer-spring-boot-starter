@@ -1,8 +1,8 @@
 package com.github.spring.data.jpa.event.producer;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.spring.data.jpa.event.producer.EntityEvent.Action;
-import java.time.Instant;
+import com.github.spring.data.jpa.event.producer.jpa.listener.EntityEventListener;
+import com.github.spring.data.jpa.event.producer.mapper.EntityToEventMapper;
+import com.github.spring.data.jpa.event.producer.mapper.EntityToEventMapper.DatabaseAction;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,8 +14,8 @@ public class EntityEventToKafkaEventHandler<I, E> implements EntityEventListener
 
   private String entityClassName;
   private String kafkaTopicName;
+  private EntityToEventMapper<E> entityToEventMapper;
   private KafkaTemplate<String, String> kafkaTemplate;
-  private ObjectMapper objectMapper;
 
   public String getEntityClassName() {
     return entityClassName;
@@ -25,8 +25,7 @@ public class EntityEventToKafkaEventHandler<I, E> implements EntityEventListener
   public void onPostInsert(I id, E entity) {
     log.info("PostInsert listener");
     try {
-      var event = new EntityEvent<>(Action.CREATED, entity, Instant.now());
-      var jsonEvent = objectMapper.writeValueAsString(event);
+      String jsonEvent = entityToEventMapper.map(DatabaseAction.INSERT, entity);
       log.info("Producing event on topic [{}] : {}", kafkaTopicName, jsonEvent);
       if (id instanceof UUID uuid) {
         log.info("ENTITY ID: " + uuid);
@@ -42,8 +41,7 @@ public class EntityEventToKafkaEventHandler<I, E> implements EntityEventListener
   public void onPostUpdate(I id, E entity) {
     log.info("PostUpdate listener");
     try {
-      var event = new EntityEvent<>(Action.UPDATED, entity, Instant.now());
-      var jsonEvent = objectMapper.writeValueAsString(event);
+      String jsonEvent = entityToEventMapper.map(DatabaseAction.UPDATE, entity);
       log.info("Producing event on topic [{}] : {}", kafkaTopicName, jsonEvent);
       kafkaTemplate.send(kafkaTopicName, jsonEvent);
 
@@ -56,8 +54,7 @@ public class EntityEventToKafkaEventHandler<I, E> implements EntityEventListener
   public void onPostDelete(I id, E entity) {
     log.info("PostDelete listener.");
     try {
-      var event = new EntityEvent<>(Action.DELETED, entity, Instant.now());
-      var jsonEvent = objectMapper.writeValueAsString(event);
+      String jsonEvent = entityToEventMapper.map(DatabaseAction.DELETE, entity);
       log.info("Producing event on topic [{}] : {}", kafkaTopicName, jsonEvent);
       kafkaTemplate.send(kafkaTopicName, jsonEvent);
 

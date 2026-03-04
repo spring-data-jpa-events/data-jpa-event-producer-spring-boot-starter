@@ -1,4 +1,4 @@
-package com.github.spring.data.jpa.event.producer;
+package com.github.spring.data.jpa.event.producer.jpa.listener;
 
 public interface EntityEventListener<I, E> {
   void onPostInsert(I id, E entity);

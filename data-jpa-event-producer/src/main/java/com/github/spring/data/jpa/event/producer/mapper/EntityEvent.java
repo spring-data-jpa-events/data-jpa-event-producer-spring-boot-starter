@@ -1,4 +1,4 @@
-package com.github.spring.data.jpa.event.producer;
+package com.github.spring.data.jpa.event.producer.mapper;
 
 import java.time.Instant;
 import lombok.AccessLevel;

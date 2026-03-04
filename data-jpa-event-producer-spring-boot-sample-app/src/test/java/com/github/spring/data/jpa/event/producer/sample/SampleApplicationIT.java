@@ -3,7 +3,7 @@ package com.github.spring.data.jpa.event.producer.sample;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
-import com.github.spring.data.jpa.event.producer.EntityEvent.Action;
+import com.github.spring.data.jpa.event.producer.mapper.EntityEvent.Action;
 import com.github.spring.data.jpa.event.producer.sample.organization.Organization;
 import com.github.spring.data.jpa.event.producer.sample.organization.OrganizationService;
 import com.github.spring.data.jpa.event.producer.sample.user.UserService;
