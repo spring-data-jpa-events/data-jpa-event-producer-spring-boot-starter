@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 @Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface KafkaEvents {
+public @interface EventProducer {
   /** The kafka topic name where the generated events will be produced. */
   String topic();
 }
