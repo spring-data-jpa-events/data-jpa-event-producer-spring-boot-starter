@@ -28,6 +28,10 @@ spotless {
   }
 }
 
+// Override jackson-bom version to fix GHSA-72hv-8253-57qq (DoS via Number Length Constraint Bypass
+// in Async Parser). Spring Boot 3.5.x ships jackson-core 2.19.4 which is unmaintained; 2.21.1 is fixed.
+ext['jackson-bom.version'] = '2.21.1'
+
 dependencyManagement {
 	imports {
 		mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
